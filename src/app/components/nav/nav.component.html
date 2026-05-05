@@ -3,11 +3,21 @@
     <a class="navbar-brand fw-bold" [routerLink]="['/']">FairHome</a>
 
     <div class="navbar-nav">
+      <!-- Immer sichtbar -->
       <a class="nav-link" [routerLink]="['/']">Home</a>
+      <!-- nicht eingeloggt -->
+      @if(!authService.loggedIn) {
       <a class="nav-link" [routerLink]="['/login']">Login</a>
       <a class="nav-link" [routerLink]="['/register']">Registrieren</a>
+      }
+      <!-- eingeloggt -->
+      @if(authService.loggedIn) {
       <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+      @if(authService.isAdmin()) {
       <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+      }
+      <a class="nav-link" (click)="logout()">Logout</a>
+      }
     </div>
   </div>
-</nav>
+</nav> 
