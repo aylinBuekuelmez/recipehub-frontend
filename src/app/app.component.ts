@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,11 @@ import { NavComponent } from './components/nav/nav.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+  constructor(private authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.authService.loadFromLocalStorage();
+  }
+
 }
