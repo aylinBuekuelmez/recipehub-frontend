@@ -103,4 +103,15 @@ export class AuthService {
   isUser(): boolean {
     return this.user?.role === 'user';
   }
+  
+  getAllUsers(): Observable<User[]> {
+  return this.http.get<User[]>(
+    this.baseUrl + '/users',
+    {
+      headers: {
+        Authorization: 'Bearer ' + this.token
+      }
+    }
+  );
+}
 }

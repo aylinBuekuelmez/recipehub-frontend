@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Task } from '../../shared/task';
 import { TaskService } from '../../shared/task.service';
+import { AuthService } from '../../shared/auth.service';
+import { User } from '../../shared/user';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,6 +14,7 @@ import { TaskService } from '../../shared/task.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
+  users: User[] = [];
   tasks: Task[] = [];
   errorMessage = '';
   successMessage = '';
@@ -22,10 +25,12 @@ export class AdminDashboardComponent implements OnInit {
     user_id: new FormControl<number | null>(null)
   });
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+  private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadTasks();
+    this.loadUsers();
   }
 
   loadTasks(): void {
@@ -39,6 +44,18 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
+  loadUsers(): void {
+  this.authService.getAllUsers().subscribe({
+    next: (users) => {
+      this.users = users;
+    },
+    error: (err) => {
+      console.log(err);
+      this.errorMessage = 'Nutzer konnten nicht geladen werden.';
+    }
+  });
+}
 
   createTask(): void {
     const title = this.taskForm.value.title || '';
