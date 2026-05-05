@@ -45,4 +45,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  get openTasks(): Task[] {
+    return this.tasks.filter(task => task.status !== 'done');
+  }
+
+  get doneTasks(): Task[] {
+    return this.tasks.filter(task => task.status === 'done');
+  }
+
+  get progress(): number {
+    if (this.tasks.length === 0) {
+      return 0;
+    }
+
+    return Math.round((this.doneTasks.length / this.tasks.length) * 100);
+  }
+
 }
