@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { Task } from './task';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TaskService {
+  baseUrl = 'http://localhost:3000';
+
+  constructor(private http: HttpClient,
+    private authService: AuthService) { }
+
+  getMyTasks(): Observable<Task[]> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.authService.token
+    });
+
+    return this.http.get<Task[]>(
+      this.baseUrl + '/tasks/my-tasks',
+      { headers: headers }
+    );
+  }
+}

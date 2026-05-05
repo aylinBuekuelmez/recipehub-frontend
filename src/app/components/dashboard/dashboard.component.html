@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<h1 class="mb-4">Mein Dashboard</h1>
+
+@if(errorMessage) {
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+}
+
+@if(tasks.length === 0) {
+  <div class="alert alert-info">
+    Du hast aktuell keine Aufgaben.
+  </div>
+} @else {
+  <div class="row g-3">
+    @for(task of tasks; track task.id) {
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.title }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+
+            <span class="badge bg-secondary">
+              {{ task.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}
