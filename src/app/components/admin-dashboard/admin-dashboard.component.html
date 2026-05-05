@@ -1,1 +1,95 @@
-<p>admin-dashboard works!</p>
+<h1 class="mb-4">Admin Dashboard</h1>
+
+@if(errorMessage) {
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+}
+
+@if(successMessage) {
+  <div class="alert alert-success">
+    {{ successMessage }}
+  </div>
+}
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Neue Aufgabe erstellen</h2>
+
+    <form [formGroup]="taskForm" (ngSubmit)="createTask()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Titel</label>
+        <input
+          id="title"
+          type="text"
+          class="form-control"
+          formControlName="title"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Beschreibung</label>
+        <input
+          id="description"
+          type="text"
+          class="form-control"
+          formControlName="description"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="user_id" class="form-label">User-ID</label>
+        <input
+          id="user_id"
+          type="number"
+          class="form-control"
+          formControlName="user_id"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Aufgabe erstellen
+      </button>
+    </form>
+  </div>
+</div>
+
+<h2 class="h5 mb-3">Alle Aufgaben</h2>
+
+@if(tasks.length === 0) {
+  <div class="alert alert-info">
+    Es gibt aktuell keine Aufgaben.
+  </div>
+} @else {
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titel</th>
+        <th>Beschreibung</th>
+        <th>Status</th>
+        <th>User-ID</th>
+        <th>Aktion</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for(task of tasks; track task.id) {
+        <tr>
+          <td>{{ task.id }}</td>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.user_id }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteTask(task.id)">
+              Löschen
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
