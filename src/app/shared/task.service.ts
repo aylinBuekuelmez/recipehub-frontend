@@ -24,4 +24,17 @@ export class TaskService {
       { headers: headers }
     );
   }
+
+  updateTask(task: Task): Observable<Task> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.authService.token
+    });
+
+    return this.http.put<Task>(
+      this.baseUrl + '/tasks/' + task.id,
+      task,
+      { headers: headers }
+    );
+  }
+
 }

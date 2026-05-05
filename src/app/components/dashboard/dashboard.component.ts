@@ -28,4 +28,21 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  markAsDone(task: Task): void {
+    const updatedTask: Task = {
+      ...task,
+      status: 'done'
+    };
+
+    this.taskService.updateTask(updatedTask).subscribe({
+      next: (taskFromBackend) => {
+        task.status = taskFromBackend.status;
+      },
+      error: (err) => {
+        console.log(err);
+        this.errorMessage = 'Aufgabe konnte nicht aktualisiert werden.';
+      }
+    });
+  }
+
 }
