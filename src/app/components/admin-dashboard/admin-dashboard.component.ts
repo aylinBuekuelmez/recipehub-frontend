@@ -18,6 +18,7 @@ export class AdminDashboardComponent implements OnInit {
   tasks: Task[] = [];
   errorMessage = '';
   successMessage = '';
+  selectedTaskId: number | null = null;
 
   taskForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -77,6 +78,7 @@ export class AdminDashboardComponent implements OnInit {
       next: (task) => {
         this.tasks.push(task);
         this.taskForm.reset();
+        this.selectedTaskId = null;
         this.successMessage = 'Aufgabe wurde erstellt.';
         this.errorMessage = '';
       },
@@ -87,6 +89,76 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
+  editTask(task: Task): void {
+    this.selectedTaskId = task.id;
+
+    this.taskForm.setValue({
+      title: task.title,
+      description: task.description,
+      user_id: task.user_id
+    });
+  }
+
+  saveTask(): void {
+    if (this.taskForm.invalid) {
+      this.errorMessage = 'Titel und Nutzer müssen angegeben werden.';
+      this.successMessage = '';
+      return;
+    }
+
+    if (this.selectedTaskId) {
+      this.updateSelectedTask();
+    } else {
+      this.createTask();
+    }
+  }
+  updateSelectedTask(): void {
+    if (!this.selectedTaskId) {
+      return;
+    }
+
+    const title = this.taskForm.value.title || '';
+    const description = this.taskForm.value.description || '';
+    const userId = this.taskForm.value.user_id;
+
+    if (!userId) {
+      this.errorMessage = 'Ein Nutzer muss ausgewählt werden.';
+      this.successMessage = '';
+      return;
+    }
+
+    const taskToUpdate: Task = {
+      id: this.selectedTaskId,
+      title: title,
+      description: description,
+      status: 'open',
+      user_id: userId
+    };
+
+    this.taskService.updateTask(taskToUpdate).subscribe({
+      next: (updatedTask) => {
+        this.tasks = this.tasks.map(task =>
+          task.id === updatedTask.id ? updatedTask : task
+        );
+
+        this.cancelEdit();
+
+        this.successMessage = 'Aufgabe wurde aktualisiert.';
+        this.errorMessage = '';
+      },
+      error: (err) => {
+        console.log(err);
+        this.errorMessage = 'Aufgabe konnte nicht aktualisiert werden.';
+        this.successMessage = '';
+      }
+    });
+  }
+
+  cancelEdit(): void {
+  this.selectedTaskId = null;
+  this.taskForm.reset();
+}
 
   deleteTask(taskId: number): void {
     this.taskService.deleteTask(taskId).subscribe({

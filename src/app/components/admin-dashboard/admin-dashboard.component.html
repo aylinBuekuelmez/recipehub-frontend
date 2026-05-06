@@ -14,9 +14,13 @@
 
 <div class="card mb-4">
     <div class="card-body">
+        @if(selectedTaskId) {
+        <h2 class="h5 mb-3">Aufgabe bearbeiten</h2>
+        } @else {
         <h2 class="h5 mb-3">Neue Aufgabe erstellen</h2>
+        }
 
-        <form [formGroup]="taskForm" (ngSubmit)="createTask()">
+        <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
             <div class="mb-3">
                 <label for="title" class="form-label">Titel</label>
                 <input id="title" type="text" class="form-control" formControlName="title" />
@@ -41,9 +45,19 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary"[disabled]="taskForm.invalid">
+            <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+                @if(selectedTaskId) {
+                Speichern
+                } @else {
                 Aufgabe erstellen
+                }
             </button>
+            @if(selectedTaskId) {
+            <button type="button" class="btn btn-outline-secondary ms-2" (click)="cancelEdit()">
+                Abbrechen
+            </button>
+            }
+
         </form>
     </div>
 </div>
@@ -76,6 +90,10 @@
             <td>{{ task.status }}</td>
             <td>{{ task.user_id }}</td>
             <td>
+
+                <button class="btn btn-outline-primary btn-sm me-2" (click)="editTask(task)">
+                    Bearbeiten
+                </button>
                 <button class="btn btn-outline-danger btn-sm" (click)="deleteTask(task.id)">
                     Löschen
                 </button>
