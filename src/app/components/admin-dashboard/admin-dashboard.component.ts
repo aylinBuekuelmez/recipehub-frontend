@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from '../../shared/task';
 import { TaskService } from '../../shared/task.service';
 import { AuthService } from '../../shared/auth.service';
@@ -20,13 +20,13 @@ export class AdminDashboardComponent implements OnInit {
   successMessage = '';
 
   taskForm = new FormGroup({
-    title: new FormControl(''),
+    title: new FormControl('', Validators.required),
     description: new FormControl(''),
-    user_id: new FormControl<number | null>(null)
+    user_id: new FormControl<number | null>(null, Validators.required)
   });
 
   constructor(private taskService: TaskService,
-  private authService: AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -46,31 +46,33 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadUsers(): void {
-  this.authService.getAllUsers().subscribe({
-    next: (users) => {
-      this.users = users;
-    },
-    error: (err) => {
-      console.log(err);
-      this.errorMessage = 'Nutzer konnten nicht geladen werden.';
-    }
-  });
-}
+    this.authService.getAllUsers().subscribe({
+      next: (users) => {
+        this.users = users;
+      },
+      error: (err) => {
+        console.log(err);
+        this.errorMessage = 'Nutzer konnten nicht geladen werden.';
+      }
+    });
+  }
 
   createTask(): void {
     const title = this.taskForm.value.title || '';
     const description = this.taskForm.value.description || '';
     const userId = this.taskForm.value.user_id;
 
-    if (!title || !userId) {
-      this.errorMessage = 'Titel und User-ID müssen angegeben werden.';
+    if (this.taskForm.invalid) {
+      this.errorMessage = 'Titel und Nutzer müssen angegeben werden.';
+      this.successMessage = '';
       return;
     }
+
 
     this.taskService.createTask({
       title: title,
       description: description,
-      user_id: userId
+      user_id: userId!
     }).subscribe({
       next: (task) => {
         this.tasks.push(task);

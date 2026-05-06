@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 
@@ -14,8 +14,8 @@ export class LoginComponent {
   errorMessage = '';
 
   loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   constructor(
@@ -26,6 +26,11 @@ export class LoginComponent {
   login(): void {
     const username = this.loginForm.value.username || '';
     const password = this.loginForm.value.password || '';
+
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Bitte Benutzername und Passwort eingeben.';
+      return;
+    }
 
     this.authService.loginUser(username, password).subscribe({
       next: (response) => {

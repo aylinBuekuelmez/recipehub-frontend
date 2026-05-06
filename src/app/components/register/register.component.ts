@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 
@@ -12,22 +12,28 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class RegisterComponent {
 
-errorMessage = '';
+  errorMessage = '';
   successMessage = '';
 
   registerForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   register(): void {
     const username = this.registerForm.value.username || '';
     const password = this.registerForm.value.password || '';
+
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Bitte Benutzername und Passwort eingeben.';
+      this.successMessage = '';
+      return;
+    }
 
     this.authService.registerUser({
       username: username,
