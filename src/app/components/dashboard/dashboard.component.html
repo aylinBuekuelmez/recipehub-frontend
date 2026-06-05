@@ -41,22 +41,7 @@
   <div class="row g-3 mb-4">
     @for(task of openTasks; track task.id) {
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ task.title }}</h5>
-            <p class="card-text">{{ task.description }}</p>
-
-            <span class="badge bg-warning text-dark">
-              {{ task.status }}
-            </span>
-
-            <button
-              class="btn btn-success btn-sm mt-3 d-block"
-              (click)="markAsDone(task)">
-              Erledigt
-            </button>
-          </div>
-        </div>
+        <app-task-card [task]="task" (done)="markAsDone($event)" />
       </div>
     }
   </div>
@@ -72,18 +57,7 @@
   <div class="row g-3">
     @for(task of doneTasks; track task.id) {
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-success">
-          <div class="card-body">
-            <h5 class="card-title text-decoration-line-through">
-              {{ task.title }}
-            </h5>
-            <p class="card-text text-muted">{{ task.description }}</p>
-
-            <span class="badge bg-success">
-              erledigt
-            </span>
-          </div>
-        </div>
+        <app-task-card [task]="task" />
       </div>
     }
   </div>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../shared/task.service';
 import { Task } from '../../shared/task';
+import { TaskCardComponent } from '../task-card/task-card.component';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [TaskCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
