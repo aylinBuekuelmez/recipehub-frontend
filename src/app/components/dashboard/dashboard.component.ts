@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../shared/task.service';
-import { Task } from '../../shared/task';
+import { Task } from '../../shared/recipe';
 import { TaskCardComponent } from '../task-card/task-card.component';
 
 

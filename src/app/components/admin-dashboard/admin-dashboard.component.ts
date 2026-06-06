@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Task } from '../../shared/task';
+import { Task } from '../../shared/recipe';
 import { TaskService } from '../../shared/task.service';
 import { AuthService } from '../../shared/auth.service';
 import { User } from '../../shared/user';
