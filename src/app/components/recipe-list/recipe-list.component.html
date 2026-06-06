@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Rezepte</h1>
+    <a routerLink="/recipes/new" class="btn btn-primary">+ Neues Rezept</a>
+</div>
+
+@if(errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+}
+
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        <button
+            class="nav-link"
+            [class.active]="selectedCategoryId === null"
+            (click)="selectCategory(null)">
+            Alle
+        </button>
+    </li>
+    @for(category of categories; track category.id) {
+        <li class="nav-item">
+            <button
+                class="nav-link"
+                [class.active]="selectedCategoryId === category.id"
+                (click)="selectCategory(category.id)">
+                {{ category.name }}
+            </button>
+        </li>
+    }
+</ul>
+
+@if(recipes.length === 0) {
+    <div class="alert alert-info">Noch keine Rezepte in dieser Kategorie.</div>
+} @else {
+    <div class="row g-3">
+        @for(recipe of recipes; track recipe.id) {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <p class="card-text text-muted">{{ recipe.description }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a [routerLink]="['/recipes', recipe.id]" class="btn btn-outline-primary btn-sm">
+                            Details
+                        </a>
+                        <button class="btn btn-outline-danger btn-sm" (click)="deleteRecipe(recipe.id)">
+                            Löschen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
