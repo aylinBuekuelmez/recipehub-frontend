@@ -42,7 +42,7 @@ export class LoginComponent {
         if (user.role === 'admin') {
           this.router.navigate(['/admin']);
         } else {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/recipes']);
         }
       },
       error: (err) => {
