@@ -3,7 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CategoryService } from '../../shared/category.service';
 import { AuthService } from '../../shared/auth.service';
 import { Category } from '../../shared/category';
-import { User } from '../../shared/user';
+
+
+interface User {
+    id: number;
+    username: string;
+    role: string;
+}
 
 @Component({
     selector: 'app-admin-dashboard',

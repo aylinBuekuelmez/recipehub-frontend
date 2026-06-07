@@ -9,7 +9,7 @@ import { User } from './user';
 export class AuthService {
   baseUrl = 'http://localhost:3000';
 
-  user: User = { username: '', role: '' };
+  user: User = { id: 0, username: '', role: '' };
   userChange: Subject<User> = new Subject<User>();
 
   token = '';
@@ -64,7 +64,7 @@ export class AuthService {
     this.loggedIn = false;
     this.loggedInChange.next(this.loggedIn);
 
-    this.user = { username: '', role: '' };
+    this.user = { id:0, username: '', role: '' };
     this.userChange.next(this.user);
 
     this.token = '';
