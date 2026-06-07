@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 
 @Component({
@@ -11,9 +11,12 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class NavComponent {
 
-  constructor(public authService: AuthService) {}
+  loggedIn = computed(() => this.authService.isLoggedin());
+  isAdmin = computed(() => this.authService.isAdmin());
+  constructor(private authService: AuthService, private router: Router) { }
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

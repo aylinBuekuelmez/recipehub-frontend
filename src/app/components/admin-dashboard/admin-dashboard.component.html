@@ -1,11 +1,11 @@
 <h1 class="mb-4">Admin-Dashboard</h1>
 
 @if(errorMessage) {
-    <div class="alert alert-danger">{{ errorMessage }}</div>
+<div class="alert alert-danger">{{ errorMessage }}</div>
 }
 
 @if(successMessage) {
-    <div class="alert alert-success">{{ successMessage }}</div>
+<div class="alert alert-success">{{ successMessage }}</div>
 }
 
 <div class="row g-4">
@@ -18,22 +18,15 @@
                 <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            class="form-control"
-                            formControlName="name"
+                        <input type="text" id="name" class="form-control" formControlName="name"
                             placeholder="z.B. Asiatische Küche">
                         @if(categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched) {
-                            <div class="text-danger mt-1">
-                                Name muss mindestens 3 Zeichen lang sein.
-                            </div>
+                        <div class="text-danger mt-1">
+                            Name muss mindestens 3 Zeichen lang sein.
+                        </div>
                         }
                     </div>
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        [disabled]="categoryForm.invalid">
+                    <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">
                         Kategorie erstellen
                     </button>
                 </form>
@@ -47,20 +40,54 @@
                 <h5 class="card-title mb-3">Bestehende Kategorien</h5>
 
                 @if(categories.length === 0) {
-                    <p class="text-muted">Noch keine Kategorien vorhanden.</p>
+                <p class="text-muted">Noch keine Kategorien vorhanden.</p>
                 } @else {
-                    <ul class="list-group">
-                        @for(category of categories; track category.id) {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ category.name }}
-                                <button
-                                    class="btn btn-outline-danger btn-sm"
-                                    (click)="deleteCategory(category.id)">
+                <ul class="list-group">
+                    @for(category of categories; track category.id) {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ category.name }}
+                        <button class="btn btn-outline-danger btn-sm" (click)="deleteCategory(category.id)">
+                            Löschen
+                        </button>
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Nutzerverwaltung</h5>
+                @if(users.length === 0) {
+                <p class="text-muted">Keine Nutzer vorhanden.</p>
+                } @else {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Rolle</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(user of users; track user.id) {
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>
+                                <button class="btn btn-outline-danger btn-sm" (click)="deleteUser(user.id)">
                                     Löschen
                                 </button>
-                            </li>
+                            </td>
+                        </tr>
                         }
-                    </ul>
+                    </tbody>
+                </table>
                 }
             </div>
         </div>

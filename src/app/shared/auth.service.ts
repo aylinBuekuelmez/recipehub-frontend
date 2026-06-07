@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from './user';
@@ -104,19 +104,20 @@ export class AuthService {
     return this.user?.role === 'user';
   }
   
-  getAllUsers(): Observable<User[]> {
-  return this.http.get<User[]>(
-    this.baseUrl + '/users',
-    {
-      headers: {
-        Authorization: 'Bearer ' + this.token
-      }
-    }
-  );
-}
+  
 getCurrentUser() {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+}
+
+getAllUsers(): Observable<any[]> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${this.token}` });
+    return this.http.get<any[]>(`${this.baseUrl}/users`, { headers });
+}
+
+deleteUser(id: number): Observable<object> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${this.token}` });
+    return this.http.delete(`${this.baseUrl}/users/${id}`, { headers });
 }
 
 }
