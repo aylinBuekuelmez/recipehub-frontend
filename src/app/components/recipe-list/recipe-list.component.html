@@ -61,9 +61,12 @@
             <a [routerLink]="['/recipes', recipe.id]" class="btn btn-outline-primary btn-sm">
               Details
             </a>
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteRecipe(recipe.id)">
-              <i class="bi bi-trash"></i>
-            </button>
+            @if(canDelete(recipe)) {
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteRecipe(recipe.id)">
+                Löschen
+              </button>
+            }
+          }
           </div>
         </div>
       </div>

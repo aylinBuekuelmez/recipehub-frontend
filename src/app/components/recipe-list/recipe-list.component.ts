@@ -4,6 +4,7 @@ import { CategoryService } from '../../shared/category.service';
 import { Recipe } from '../../shared/recipe';
 import { Category } from '../../shared/category';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
     selector: 'app-recipe-list',
@@ -20,7 +21,8 @@ export class RecipeListComponent implements OnInit {
 
     constructor(
         private recipeService: RecipeService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private authService: AuthService
     ) { }
 
     ngOnInit(): void {
@@ -80,4 +82,11 @@ export class RecipeListComponent implements OnInit {
             }
         });
     }
+
+    canDelete(recipe: Recipe): boolean {
+    const aktuellerUser = this.authService.getCurrentUser();
+    if (!aktuellerUser) return false;
+    return aktuellerUser.id === recipe.user_id || aktuellerUser.role === 'admin';
+}
+
 }
