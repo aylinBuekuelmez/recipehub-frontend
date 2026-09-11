@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { RecipeService } from '../../shared/recipe.service';
 import { CategoryService } from '../../shared/category.service';
 import { Recipe } from '../../shared/recipe';
@@ -9,7 +9,7 @@ import { Category } from '../../shared/category';
 @Component({
     selector: 'app-recipe-form',
     standalone: true,
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, RouterLink],
     templateUrl: './recipe-form.component.html',
     styleUrl: './recipe-form.component.css'
 })
@@ -18,7 +18,6 @@ export class RecipeFormComponent implements OnInit {
     errorMessage = '';
     isEditMode = false;
     recipeId: number | null = null;
-    recipeStatus: Recipe['status'] = 'active' as Recipe['status'];
 
     recipeForm = new FormGroup({
         title: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -51,7 +50,6 @@ export class RecipeFormComponent implements OnInit {
             this.recipeId = Number(id);
             this.recipeService.getRecipeById(this.recipeId).subscribe({
                 next: (recipe) => {
-                    this.recipeStatus = recipe.status;
                     this.recipeForm.setValue({
                         title: recipe.title,
                         description: recipe.description,
@@ -76,7 +74,6 @@ export class RecipeFormComponent implements OnInit {
             description: this.recipeForm.value.description!,
             ingredients: this.recipeForm.value.ingredients!,
             category_id: Number(this.recipeForm.value.category_id),
-            status: this.recipeStatus,
             user_id: 0
         };
 

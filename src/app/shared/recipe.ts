@@ -4,6 +4,6 @@ export interface Recipe {
     description: string;
     ingredients: string;
     category_id: number;
-    status: string;
     user_id: number;
+    image_url?: string;
 }
