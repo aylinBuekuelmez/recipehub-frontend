@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 
@@ -9,11 +9,24 @@ import { AuthService } from '../../shared/auth.service';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
 
-  loggedIn = computed(() => this.authService.isLoggedin());
-  isAdmin = computed(() => this.authService.isAdmin());
+  loggedIn = false;
+  isAdmin = false;
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.loggedIn = this.authService.isLoggedin();
+    this.isAdmin = this.authService.isAdmin();
+
+    this.authService.loggedInChange.subscribe((wert) => {
+      this.loggedIn = wert;
+    });
+
+    this.authService.userChange.subscribe((user) => {
+      this.isAdmin = user.role === 'admin';
+    });
+  }
 
   logout(): void {
     this.authService.logout();
