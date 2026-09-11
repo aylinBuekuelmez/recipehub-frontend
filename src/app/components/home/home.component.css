@@ -1,0 +1,85 @@
+/* ===== HomeComponent ===== */
+
+.rh-hero {
+  padding: 3rem 0 2rem;
+}
+
+.rh-hero-inner {
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+}
+
+.rh-hero-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.rh-hero-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.rh-hero-subtitle {
+  font-size: 1.1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.rh-hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.rh-hero-actions .btn {
+  padding: 0.65rem 1.75rem;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+/* Feature Cards */
+.rh-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.rh-feature-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rh-feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.09);
+}
+
+.rh-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.rh-feature-card h5 {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1a1a2e;
+  margin-bottom: 0.35rem;
+}
+
+.rh-feature-card p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}

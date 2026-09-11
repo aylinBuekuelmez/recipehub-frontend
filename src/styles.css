@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== RecipeHub – Globale Styles ===== */
+
+:root {
+  --rh-primary: #e85d04;
+  --rh-primary-dark: #c44d00;
+  --rh-primary-light: #fff3ed;
+  --rh-text: #1a1a2e;
+  --rh-text-muted: #6b7280;
+  --rh-bg: #f9fafb;
+  --rh-white: #ffffff;
+  --rh-border: #e5e7eb;
+  --rh-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --rh-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+  --rh-radius: 10px;
+  --rh-radius-sm: 6px;
+}
+
+body {
+  background-color: var(--rh-bg);
+  color: var(--rh-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Bootstrap Primary-Farbe überschreiben */
+.btn-primary {
+  background-color: var(--rh-primary) !important;
+  border-color: var(--rh-primary) !important;
+  font-weight: 500;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--rh-primary-dark) !important;
+  border-color: var(--rh-primary-dark) !important;
+}
+
+.btn-outline-primary {
+  color: var(--rh-primary) !important;
+  border-color: var(--rh-primary) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--rh-primary) !important;
+  color: white !important;
+}
+
+/* Karten */
+.card {
+  border: 1px solid var(--rh-border);
+  border-radius: var(--rh-radius);
+  box-shadow: var(--rh-shadow);
+}
+
+/* Form Controls */
+.form-control:focus, .form-select:focus {
+  border-color: var(--rh-primary);
+  box-shadow: 0 0 0 0.2rem rgba(232, 93, 4, 0.15);
+}
+
+/* Nav-Tabs */
+.nav-tabs .nav-link {
+  color: var(--rh-text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--rh-primary);
+  border-bottom-color: rgba(232, 93, 4, 0.3);
+  background: transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--rh-primary) !important;
+  border-bottom: 2px solid var(--rh-primary) !important;
+  background: transparent !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid var(--rh-border);
+}
+
+/* Badges */
+.badge.bg-secondary {
+  background-color: var(--rh-primary-light) !important;
+  color: var(--rh-primary) !important;
+  font-weight: 500;
+  padding: 0.4em 0.75em;
+  border-radius: 20px;
+}
+
+/* Alerts */
+.alert-info {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+main.container {
+  max-width: 1100px;
+  padding-bottom: 3rem;
+}

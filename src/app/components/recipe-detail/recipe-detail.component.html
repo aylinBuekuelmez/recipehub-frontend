@@ -1,48 +1,60 @@
 @if(errorMessage) {
-    <div class="alert alert-danger">{{ errorMessage }}</div>
+  <div class="alert alert-danger">{{ errorMessage }}</div>
 }
 
 @if(recipe) {
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-7">
 
-            <div class="mb-3">
-                <a routerLink="/recipes" class="btn btn-outline-secondary btn-sm">
-                    ← Zurück zur Übersicht
-                </a>
+      <div class="mb-3">
+        <a routerLink="/recipes" class="rh-back-link">
+          <i class="bi bi-arrow-left"></i> Zurück zur Übersicht
+        </a>
+      </div>
+
+      <div class="rh-detail-card">
+
+        @if(recipe.image_url) {
+          <div class="rh-detail-img">
+            <img [src]="recipe.image_url" [alt]="recipe.title" />
+          </div>
+        } @else {
+          <div class="rh-detail-img-placeholder">🍴</div>
+        }
+
+        <div class="rh-detail-body">
+          <div class="rh-detail-meta">
+            @if(category) {
+              <span class="badge bg-secondary">{{ category.name }}</span>
+            }
+          </div>
+
+          <h1 class="rh-detail-title">{{ recipe.title }}</h1>
+
+          <div class="rh-detail-section">
+            <h5 class="rh-section-label">📝 Beschreibung</h5>
+            <p class="rh-section-text">{{ recipe.description }}</p>
+          </div>
+
+          <div class="rh-detail-section">
+            <h5 class="rh-section-label">🛒 Zutaten</h5>
+            <p class="rh-section-text">{{ recipe.ingredients }}</p>
+          </div>
+
+          @if(canEdit()) {
+            <div class="rh-detail-actions">
+              <a [routerLink]="['/recipes', recipe.id, 'edit']" class="btn btn-outline-primary">
+                <i class="bi bi-pencil me-1"></i> Bearbeiten
+              </a>
+              <button class="btn btn-outline-danger" (click)="deleteRecipe()">
+                <i class="bi bi-trash me-1"></i> Löschen
+              </button>
             </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="card-title mb-1">{{ recipe.title }}</h1>
-
-                    @if(category) {
-                        <span class="badge bg-secondary mb-3">{{ category.name }}</span>
-                    }
-
-                    <h5 class="mt-3">Beschreibung</h5>
-                    <p class="card-text">{{ recipe.description }}</p>
-
-                    <h5 class="mt-3">Zutaten</h5>
-                    <p class="card-text">{{ recipe.ingredients }}</p>
-                </div>
-
-                @if(canEdit()) {
-                    <div class="card-footer d-flex gap-2">
-                        <a
-                            [routerLink]="['/recipes', recipe.id, 'edit']"
-                            class="btn btn-outline-primary btn-sm">
-                            Bearbeiten
-                        </a>
-                        <button
-                            class="btn btn-outline-danger btn-sm"
-                            (click)="deleteRecipe()">
-                            Löschen
-                        </button>
-                    </div>
-                }
-            </div>
-
+          }
         </div>
+
+      </div>
+
     </div>
+  </div>
 }

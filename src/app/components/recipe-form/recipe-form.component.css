@@ -1,0 +1,64 @@
+/* ===== RecipeFormComponent ===== */
+
+.rh-form-header {
+  margin-bottom: 1.5rem;
+}
+
+.rh-back-link {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.18s;
+}
+
+.rh-back-link:hover {
+  color: #e85d04;
+}
+
+.rh-form-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.rh-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.4rem;
+}
+
+.rh-optional {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 0.85em;
+}
+
+.rh-field-error {
+  color: #dc2626;
+  font-size: 0.825rem;
+  margin-top: 0.35rem;
+}
+
+.rh-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.rh-btn-submit {
+  padding: 0.55rem 1.5rem;
+  font-weight: 500;
+}

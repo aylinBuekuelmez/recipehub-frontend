@@ -1,27 +1,45 @@
-<div class="row justify-content-center">
-  <div class="col-12 col-md-6 col-lg-4">
-    <h1 class="mb-4">Login</h1>
+<div class="rh-auth-wrapper">
+  <div class="rh-auth-card">
+    <div class="rh-auth-icon">👋</div>
+    <h1 class="rh-auth-title">Willkommen zurück</h1>
+    <p class="rh-auth-sub">Melde dich an, um Rezepte zu entdecken</p>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="mb-3">
         <label for="username" class="form-label">Benutzername</label>
-        <input id="username" type="text" class="form-control" formControlName="username" />
+        <input
+          id="username"
+          type="text"
+          class="form-control"
+          formControlName="username"
+          placeholder="Dein Benutzername" />
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Passwort</label>
-        <input id="password" type="password" class="form-control" formControlName="password" />
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Dein Passwort" />
       </div>
 
       @if(errorMessage) {
-      <div class="alert alert-danger">
-        {{ errorMessage }}
-      </div>
+        <div class="alert alert-danger py-2">{{ errorMessage }}</div>
       }
 
-      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+      <button
+        type="submit"
+        class="btn btn-primary w-100 mt-1"
+        style="padding: 0.6rem; font-size: 1rem;"
+        [disabled]="loginForm.invalid">
         Einloggen
       </button>
     </form>
+
+    <div class="rh-auth-footer">
+      Noch kein Konto? <a routerLink="/register">Jetzt registrieren</a>
+    </div>
   </div>
 </div>

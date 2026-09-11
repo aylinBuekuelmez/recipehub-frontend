@@ -1,86 +1,108 @@
 <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
+  <div class="col-12 col-md-8 col-lg-6">
 
-        <h1 class="mb-4">{{ isEditMode ? 'Rezept bearbeiten' : 'Neues Rezept' }}</h1>
-
-        @if(errorMessage) {
-            <div class="alert alert-danger">{{ errorMessage }}</div>
-        }
-
-        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-
-            <div class="mb-3">
-                <label for="title" class="form-label">Titel</label>
-                <input
-                    type="text"
-                    id="title"
-                    class="form-control"
-                    formControlName="title"
-                    placeholder="z.B. Spaghetti Carbonara">
-                @if(recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched) {
-                    <div class="text-danger mt-1">Titel muss mindestens 3 Zeichen lang sein.</div>
-                }
-            </div>
-
-            <div class="mb-3">
-                <label for="description" class="form-label">Beschreibung</label>
-                <textarea
-                    id="description"
-                    class="form-control"
-                    formControlName="description"
-                    rows="3"
-                    placeholder="Kurze Beschreibung des Rezepts">
-                </textarea>
-                @if(recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched) {
-                    <div class="text-danger mt-1">Bitte eine Beschreibung eingeben.</div>
-                }
-            </div>
-
-            <div class="mb-3">
-                <label for="ingredients" class="form-label">Zutaten</label>
-                <textarea
-                    id="ingredients"
-                    class="form-control"
-                    formControlName="ingredients"
-                    rows="4"
-                    placeholder="z.B. 200g Spaghetti, 2 Eier, 100g Speck">
-                </textarea>
-                @if(recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
-                    <div class="text-danger mt-1">Bitte Zutaten eingeben.</div>
-                }
-            </div>
-
-            <div class="mb-4">
-                <label for="category" class="form-label">Kategorie</label>
-                <select
-                    id="category"
-                    class="form-select"
-                    formControlName="category_id">
-                    <option value="">-- Kategorie wählen --</option>
-                    @for(category of categories; track category.id) {
-                        <option [value]="category.id">{{ category.name }}</option>
-                    }
-                </select>
-                @if(recipeForm.get('category_id')?.invalid && recipeForm.get('category_id')?.touched) {
-                    <div class="text-danger mt-1">Bitte eine Kategorie wählen.</div>
-                }
-            </div>
-
-            <div class="d-flex gap-2">
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                    [disabled]="recipeForm.invalid">
-                    {{ isEditMode ? 'Speichern' : 'Rezept erstellen' }}
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    (click)="onAbbrechen()">
-                    Abbrechen
-                </button>
-            </div>
-
-        </form>
+    <div class="rh-form-header">
+      <a routerLink="/recipes" class="rh-back-link">
+        <i class="bi bi-arrow-left"></i> Zurück
+      </a>
+      <h1 class="rh-form-title">
+        {{ isEditMode ? '✏️ Rezept bearbeiten' : '🆕 Neues Rezept' }}
+      </h1>
     </div>
+
+    @if(errorMessage) {
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+
+    <div class="rh-form-card">
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Titel</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            formControlName="title"
+            placeholder="z.B. Spaghetti Carbonara">
+          @if(recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched) {
+            <div class="rh-field-error">Titel muss mindestens 3 Zeichen lang sein.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Beschreibung</label>
+          <textarea
+            id="description"
+            class="form-control"
+            formControlName="description"
+            rows="3"
+            placeholder="Kurze Beschreibung des Rezepts">
+          </textarea>
+          @if(recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched) {
+            <div class="rh-field-error">Bitte eine Beschreibung eingeben.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="ingredients" class="form-label">Zutaten</label>
+          <textarea
+            id="ingredients"
+            class="form-control"
+            formControlName="ingredients"
+            rows="4"
+            placeholder="z.B. 200g Spaghetti, 2 Eier, 100g Speck">
+          </textarea>
+          @if(recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
+            <div class="rh-field-error">Bitte Zutaten eingeben.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="image_url" class="form-label">
+            Bild-URL <span class="rh-optional">(optional)</span>
+          </label>
+          <input
+            type="url"
+            id="image_url"
+            class="form-control"
+            formControlName="image_url"
+            placeholder="https://example.com/bild.jpg">
+          <div class="form-text">Link zu einem Bild deines Rezepts</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="category" class="form-label">Kategorie</label>
+          <select
+            id="category"
+            class="form-select"
+            formControlName="category_id">
+            <option value="">-- Kategorie wählen --</option>
+            @for(category of categories; track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          </select>
+          @if(recipeForm.get('category_id')?.invalid && recipeForm.get('category_id')?.touched) {
+            <div class="rh-field-error">Bitte eine Kategorie wählen.</div>
+          }
+        </div>
+
+        <div class="rh-form-actions">
+          <button
+            type="submit"
+            class="btn btn-primary rh-btn-submit"
+            [disabled]="recipeForm.invalid">
+            {{ isEditMode ? '💾 Speichern' : '🍴 Rezept erstellen' }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="onAbbrechen()">
+            Abbrechen
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 </div>

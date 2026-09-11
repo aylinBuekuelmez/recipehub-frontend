@@ -1,0 +1,121 @@
+/* ===== RecipeListComponent ===== */
+
+.rh-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.rh-list-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.rh-list-sub {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.rh-btn-new {
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* Tabs */
+.rh-category-tabs {
+  overflow-x: auto;
+}
+
+/* Rezeptkarte */
+.rh-recipe-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rh-recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.rh-recipe-img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.rh-recipe-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rh-recipe-img-placeholder {
+  height: 130px;
+  background: linear-gradient(135deg, #fff3ed 0%, #fde8d0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.rh-recipe-body {
+  padding: 1.1rem 1.25rem;
+  flex: 1;
+}
+
+.rh-recipe-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 0.4rem;
+}
+
+.rh-recipe-desc {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rh-recipe-footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Empty State */
+.rh-empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #9ca3af;
+}
+
+.rh-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.rh-empty-state p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
